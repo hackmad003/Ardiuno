@@ -1,0 +1,83 @@
+/*
+V3
+three blinking light
+UIC
+Awaidah 
+9/4/2025
+
+Lab1 Three Blinking Lights
+
+*/
+
+
+//PIN IDENTIFIERS
+const int ledPin = LED_BUILTIN;
+const int redLedPin = 9;
+const int greenLedPin = 11;
+
+//STATE VARIABLES
+
+//GLOBAL PREVIOUS TIME VARIBLE
+unsigned long previousMillis = 0;
+
+//GLOBAL LED INTERVAL 
+const long interval = 1000;
+
+//SWITCH 
+int currentLED = 0;
+
+void setup() {
+  pinMode(ledPin, OUTPUT);
+  pinMode(redLedPin, OUTPUT);
+  pinMode(greenLedPin, OUTPUT);
+
+}
+
+void loop() {
+
+  //GLOBAL PROGRAM RUNTIME
+  unsigned long currentMillis = millis();
+
+
+  ////////////////////////
+  ////BLINK LOGIC ////////
+  ////////////////////////
+
+  if(currentMillis - previousMillis >= interval) {
+    previousMillis = currentMillis;
+
+    digitalWrite(ledPin, LOW);
+    digitalWrite(redLedPin, LOW);
+    digitalWrite(greenLedPin, LOW);
+    
+
+    switch(currentLED){
+      case 0: 
+        digitalWrite(ledPin, HIGH);
+        break;
+      case 1:
+        digitalWrite(redLedPin, HIGH);
+        break;
+      case 2:     
+        digitalWrite(greenLedPin, HIGH);
+        break;
+    }
+
+    currentLED = (currentLED + 1) % 3;
+    
+  }
+
+} //END
+
+
+
+//RESET
+/*
+void setup() {
+  // Empty setup - nothing happens
+}
+
+void loop() {
+  // Empty loop - Arduino does nothing
+}
+*/
