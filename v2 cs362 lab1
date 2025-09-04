@@ -1,0 +1,156 @@
+/*
+v2
+one blinking light
+UIC
+Awaidah 
+9/4/2025
+
+Lab1 Three Blinking Lights
+
+*/
+
+
+//PIN IDENTIFIERS
+const int ledPin = LED_BUILTIN;
+//the constant LED_BUILTIN is the number of the pin to which the 
+//on-board LED is connected. Most boards have this LED connected to digital pin 13
+
+const int redLedPin = 9;
+//variable to identify red LED pin 
+
+const int greenLedPin = 11;
+//variable to identify green LED pin
+
+
+//STATE VARIABLES
+int ledState = LOW; 
+//variable used to control the state of the LED (LOW, HIGH)
+
+
+//TIME VARIBLES
+unsigned long LEDpreviousMillis = -500;
+//unsigned long for variable associated with storing the
+// last time the LED status was updated in milliseconds 
+
+unsigned long REDpreviousMillis = -500;
+//variable to manage red led blink pattern in milliseconds
+
+unsigned long GREENpreviousMillis = 15000;
+//variable to manage green led blink pattern in milliseconds
+
+
+//GLOBAL LED INTERVAL 
+const long interval = 1000;
+// 1,000 milliseconds = 1 second 
+// 2,000 milliseconds - 2 second
+// 1 millisecond = 0.001 seconds
+
+
+//setup()
+//function called when a sketch starts, 
+//used to initialize variables, pins, libraris, etc
+// runs once after each reset of the Arduino Board
+void setup() {
+  pinMode(ledPin, OUTPUT);
+  pinMode(redLedPin, OUTPUT);
+  pinMode(greenLedPin, OUTPUT);
+
+  //pinMode()
+  //Configures the specified pin to behave either as an INPUT or an OUTPUT
+
+}
+
+//loop()
+//after creating setup() func 
+//loop() function loops consecutively, 
+// actively controlling the srduino board
+void loop() {
+  
+  // check to see if it's time to blink the LED; that is, if the difference
+  // between the current time and last time you blinked the LED is bigger than
+  // the interval at which you want to blink the LED.
+
+  //GLOBAL PROGRAM RUNTIME
+  unsigned long currentMillis = millis();
+
+  //unsigned long REDcurrentMillis = millis();
+
+  //unsigned long GREENcurrentMillis = millis();
+  //millis()
+  //returns the exact number of milliseconds passed since the Arduino 
+  //board began running the current program
+
+  ////////////////////////
+  ////BLINK LOGIC ////////
+  ////////////////////////
+
+  //if (the exact number of milliseconds since the program began
+  // runnign the current program) - (0) >= 1000 milliseconds
+  if(currentMillis - LEDpreviousMillis >= interval) {
+    
+    // now previousMillis is assigned the updated runtime in milliseconds
+    //save the last time you blinked the LED
+    LEDpreviousMillis = currentMillis;
+
+    //if the LED is off turn it on and vice-versa:
+    if (ledState == LOW){
+      ledState = HIGH;
+    } else {
+      ledState = LOW;
+    }
+
+    // set the LED with the ledState of the variable
+    digitalWrite(ledPin, ledState);
+    //digitalWrite()
+    //If the pin is configured as OUTPUT with pinMode()
+    //the voltage will be set to the corresponding values for HIGH
+    // and 0V (ground) for LOW
+
+    //If the pin is configured as an INPUT, digitalWrite() will enable HIGH ...
+    //https://docs.arduino.cc/language-reference/en/functions/digital-io/digitalwrite/
+  }
+
+  if(REDcurrentMillis - REDpreviousMillis >= interval){
+
+    REDpreviousMillis = REDcurrentMillis;
+    
+    if (ledState == LOW){
+      ledState = HIGH;
+    } else {
+      ledState = LOW;
+    }
+
+    digitalWrite(redLedPin, ledState);
+
+  }
+
+
+  if(GREENcurrentMillis - GREENpreviousMillis >= interval){
+
+    GREENpreviousMillis = GREENcurrentMillis;
+    
+    if (ledState == LOW){
+      ledState = HIGH;
+    } else {
+      ledState = LOW;
+    }
+
+    digitalWrite(greenLedPin, ledState);
+
+  }
+
+
+} //END
+
+
+
+//RESET
+/*
+void setup() {
+  // Empty setup - nothing happens
+}
+
+void loop() {
+  // Empty loop - Arduino does nothing
+}
+*/
