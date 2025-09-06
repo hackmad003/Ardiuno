@@ -1,0 +1,119 @@
+/*
+V5
+Ahmad Awaidah 651397101 aawai@uic.edu
+Lab 1 Three Blinking Lights
+
+Description – Turns on-board light on/off for 1000 milliseconds,
+turns on red led light on/off for 1000 milliseconds,
+turns on green led light on/off for 1000 milliseconds.
+Cycle Repeats...
+
+Hardware: Arduino UNO R4 Wi-Fi
+Software: C++
+
+Sources:
+https://docs.arduino.cc/built-in-examples/digital/BlinkWithoutDelay/
+https://docs.arduino.cc/language-reference/en/functions/time/millis/
+https://www.norwegiancreations.com/2017/09/arduino-tutorial-using-millis-instead-of-delay/
+
+• Code is well documented/formatted with inline comments, indentations, descriptive variable
+names, and properly uses functions
+*/
+
+/*
+/////////////////////
+////PIN IDENTIFIERS//
+////////////////////
+const int ledPin = LED_BUILTIN;
+//The constant LED_BUILTIN is the number of the pin to which the 
+//const on-board LED is connected. Most boards have this LED connected to digital pin 13
+const int redLedPin = 9;
+const int greenLedPin = 8;
+
+////////////////////
+///LOGIC VARIABLES//
+////////////////////
+
+unsigned long previousMillis = 0; //milliseconds will grow too rapidly for int
+//GLOBAL LED INTERVAL 
+//time between each LED blink before counter is updated and loop reruns 
+//turning off all LEDs
+const long interval = 1000;
+// 1,000 milliseconds = 1 second of LED blinking
+// 2,000 milliseconds - 2 second
+// 1 millisecond = 0.001 seconds
+int currentLed = 0;
+
+
+void setup() {
+  pinMode(ledPin, OUTPUT);
+  pinMode(redLedPin, OUTPUT);
+  pinMode(greenLedPin, OUTPUT);
+  Serial.begin(9600);
+  //pinMode()
+  //Configures the specified pin to behave either as an INPUT or an OUTPUT
+}
+
+void loop() {
+  //GLOBAL PROGRAM RUNTIME
+  unsigned long currentMillis = millis();
+
+  ////////////////////////
+  ////BLINK LOGIC ////////
+  ////////////////////////
+
+  //if the difference between current program runtime in milliseconds 
+  //and the last time an led was blinked, is greater than or equal to 
+  //the interval or rate at which you want to blink the LEDs, then run logic.
+  //if statement will ALWAYs run aiding in repeating loop logic cycle.
+  if(currentMillis - previousMillis >= interval){
+    previousMillis = currentMillis; //save the last time led lights were blinked
+
+    //turn off looming LEDs that were on from the last cycle all OFF first
+    //
+    digitalWrite(ledPin, LOW);
+    digitalWrite(redLedPin, LOW);
+    digitalWrite(greenLedPin, LOW);
+
+    //currentLed checks to see whose turn it is. 
+    if(currentLed == 0){  // 0 = on-board LED
+      digitalWrite(ledPin, HIGH); //digital write to ouput LED is now on until loop runs again and turning it off, 
+      // thus leaving the light on for about a second in the cycles moving forward
+      // because of the blink logic IF statement above 
+    } else if (currentLed == 1){ // 1 = red LED
+      digitalWrite(redLedPin, HIGH);
+    } else if (currentLed == 2){ // 2 = green LED
+      digitalWrite(greenLedPin, HIGH);
+    }
+
+    //update the counter
+    currentLed += 1;
+    if(currentLed == 3){
+      currentLed = 0; //set it back to zero to continue the cycle
+    }
+  } 
+
+  //////////////////////////////////////
+  ////ADDITIONAL FUNCTIONALITY /////////
+  //////////////////////////////////////
+  int sensorValue = analogRead(A0);
+  float voltage = sensorValue * (5.0/1023.0);
+
+  int brightness = map(sensorValue, 0, 1023, 0, 255);
+
+  analogWrite(11,brightness);
+
+
+} //EOF
+*/
+
+//RESET
+
+void setup() {
+  // Empty setup - nothing happens
+}
+
+void loop() {
+  // Empty loop - Arduino does nothing
+}
+
